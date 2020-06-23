@@ -43,11 +43,23 @@ h3 small {
 h4 small {
     font-size: 1.14rem
 }
+.main-heading {
+    font-size: 3.46rem;
+    font-weight: bold !important;
+    line-height: 4.39rem;
+}
+.main-heading-small {
+    font-size: 2.46rem;
+    line-height: 3.08rem;
+}
 .profileblock .forgotpass {
     font-size: 0.965rem;
 }
 .breadcrumb {
     font-size: 0.965rem;
+}
+@media (max-width: 480px) {
+h1{font-size:2.15rem;line-height:3.08rem}h2{font-size:1.85rem;line-height:3.08rem}h3{font-size:1.54rem;line-height:2.46rem}h4{font-size:1.23rem;line-height:1.92rem}h5{font-size:1.14rem}h1 small{font-size:1.54rem}h2 small{font-size:1.23rem}h3 small{font-size:1.14rem}h4 small{font-size:1.08rem}.main-heading{font-size:3.03rem;line-height:3.88rem}.main-heading-small{font-size:2.15rem}
 }
 
 /*================================================== * 
@@ -70,15 +82,6 @@ blockquote footer {
 }
 .plus {
 	font-size:1.05em;
-}
-.main-heading {
-    font-size: 3.46rem;
-    font-weight: bold !important;
-    line-height: 4.39rem;
-}
-.main-heading-small {
-    font-size: 2.46rem;
-    line-height: 3.08rem;
 }
 .row-fluid.frontpage {
     margin-bottom: 40px;
@@ -924,7 +927,8 @@ Bootstrap
     background-color: rgba(0,0,0,0.5) !important;
     transition: all 0.3s ease 0.1s;
 }
-.course-content ul.topics li.section .left, .course-content ul.topics li.section .right {
+.course-content ul.topics li.section .left, .course-content ul.topics li.section .right,
+.course-content ul.weeks li.section .left, .course-content ul.weeks li.section .right {
     padding: 0;
     text-align: left;
     width: inherit;
@@ -1053,7 +1057,7 @@ Bootstrap
     width: 100%;
     height: auto;
 }
-.carousel-plus .next {
+.carousel-plus .next, .carousel-plus .prev {
     width: 100% !important;
 }
 .carousel-plus.carousel .carousel-caption {
@@ -1066,8 +1070,8 @@ Bootstrap
     border-radius: 0 !important;
     opacity: 0.4 !important;
     font-size: 45px;
-    color: #333;
-	line-height: 34px !important;
+    color: #333 !important;
+    line-height: 30px !important;
 }
 .carousel-plus.carousel-control:hover, .carousel-plus.carousel-control:focus {
     color: #333;

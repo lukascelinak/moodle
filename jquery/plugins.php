@@ -19,12 +19,12 @@
  * Built on: Essential by Julian Ridden
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
 
 $plugins = array(
 	'jquery.easing.min.1.4'	=> array('files' => array('jquery.easing.min.1.4.js')),
-	'slideshow' => array('files' => array('camera.js')),
-	'carousel' => array('files' => array('bxslider.js'))
+	'slideshow' => array('files' => array('slideshow.js')),
+	'carousel' => array('files' => array('carousel.js'))
 );

@@ -17,7 +17,7 @@
 /**
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
 
@@ -28,7 +28,7 @@ $THEME->parents = array();
 $fa_version = 'fa-4';
 if ($THEME->settings->use_fa5 == 1) {$fa_version = 'fa-5';}
 
-$THEME->sheets = array('moodle', 'slider', 'typography', 'auth', $fa_version, 'style');
+$THEME->sheets = array('slider', 'typography', $fa_version, 'style_min', 'pix-core', 'vars');
 $THEME->editor_sheets = array();
 $THEME->supportscssoptimisation = false;
 
@@ -101,7 +101,7 @@ $THEME->layouts = array(
     ),
     // Pages that appear in pop-up windows - no navigation, no blocks, no header.
     'popup' => array(
-        'file' => 'embedded.php',
+        'file' => 'popup.php',
         'regions' => array()
     ),
     // The pagelayout used for reports.
@@ -157,5 +157,4 @@ $THEME->layouts = array(
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->csspostprocess = 'theme_lambda_process_css';
-$THEME->javascripts = array('custom_js_theme');
-$THEME->javascripts_footer = array('bs_theme');
+$THEME->javascripts_footer = array('bs');

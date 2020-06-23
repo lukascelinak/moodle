@@ -17,7 +17,7 @@
 /**
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
  
@@ -308,6 +308,101 @@
             'data-droptarget' => '1'
         );
         return html_writer::tag($tag, $this->blocks_for_region($region), $attributes);
+    }
+	
+	public function lambda_footer_scripts() {
+		$tag = 'script';
+		$upOne = dirname(__DIR__, 1);
+		return html_writer::tag($tag, file_get_contents ($upOne . '/javascript/scripts.js'));
+    }
+	
+	public function lambda_fp_slideshow() {
+		static $theme;
+		$theme = theme_config::load('lambda');
+	
+		$tag = "script";
+		$html = "";
+		
+		$loader='';
+		if(theme_lambda_get_setting('slideshow_loader')==0) {$loader='bar';}
+		else if(theme_lambda_get_setting('slideshow_loader')==1) {$loader='pie';}
+		else if(theme_lambda_get_setting('slideshow_loader')==3) {$loader='none';}
+		
+		$imgfx='random';
+		if (theme_lambda_get_setting('slideshow_imgfx')!='') {$imgfx=theme_lambda_get_setting('slideshow_imgfx');}
+		
+		$slideshow_height='auto';
+		if(theme_lambda_get_setting('slideshow_height')=='responsive') {
+			if (!empty(theme_lambda_get_setting('slide1image'))) {
+				$slide_img_src = $theme->setting_file_url('slide1image', 'slide1image');
+				if (!empty($_SERVER['HTTPS'])) {$slide_img_src = 'https:'.$slide_img_src;} else {$slide_img_src = 'http:'.$slide_img_src;}
+				list($width, $height) = theme_lambda_getslidesize($slide_img_src);
+				$relative = $height/$width*100;
+				$relative .= '%';
+				$slideshow_height=$relative;
+			}
+		}
+		
+		$advance='true';
+		if(theme_lambda_get_setting('slideshow_advance')==0) {$advance='false';}
+		
+		$navhover='true';
+		if(theme_lambda_get_setting('slideshow_nav')==0) {$navhover='false';}
+
+		
+		$html .= "
+		(function($) {
+ 		$(document).ready(function(){
+		$('#camera_wrap').camera({
+			fx: '".$imgfx."',
+			height: '".$slideshow_height."',
+			loader: '".$loader."',
+			thumbnails: false,
+			pagination: false,
+			autoAdvance: ".$advance.",
+			hover: false,
+			navigationHover: ".$navhover.",
+			mobileNavHover: ".$navhover.",
+			opacityOnGrid: false
+		});
+	 	});
+		}) (jQuery);
+		";
+
+		return html_writer::tag($tag, $html);
+    }
+	
+	public function lambda_fp_carousel() {
+		$tag = "script";
+		$html = "";
+		
+		$carousel_img_dim = theme_lambda_get_setting('carousel_img_dim');
+		$carousel_img_dim = substr($carousel_img_dim, 0, -2);
+		
+		$html .= "
+		var width = $(window).innerWidth();
+		(function($) {
+ 		$(document).ready(function(){
+		$('.slider1').bxSlider({
+			pager: false,
+			nextSelector: '#slider-next',
+			prevSelector: '#slider-prev',
+			nextText: '>',
+			prevText: '<',
+			slideWidth: ".$carousel_img_dim.",
+    		minSlides: 1,
+    		maxSlides: (width < 430) ? 1 : 6,
+			moveSlides: 0,
+			shrinkItems: true,
+			useCSS: true,
+			wrapperClass: 'bx-wrapper',
+    		slideMargin: 10	
+		});
+	 	});
+		}) (jQuery);
+		";
+
+		return html_writer::tag($tag, $html);
     }
     
     public function edit_button(moodle_url $url) {

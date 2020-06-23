@@ -8,11 +8,21 @@ Header
 #block-login div, #submit {
     font-size: 1.15em;
 }
+.profileblock .usermenu .caret {
+    display: none;
+}
+.profileblock .usermenu .userbutton::after {
+    content: "\f0d7";
+    font-family: "Font Awesome 5 Free";
+    font-size: 13px;
+    font-weight: 900;
+    color: #999;
+}
 
 /* =========================================================== *
 Navbar
 ============================================================== */
-ul.breadcrumb li:after { 
+ul.breadcrumb li:after, .breadcrumb-button > a::before, #page-admin-search .adminpagepath li + li::before {
 	content: "\f105";
 	font-family: "Font Awesome 5 Free";
 	font-size: 1.1em;
@@ -31,14 +41,6 @@ Moodle gear menus and admin tabs
 	font-weight: 900;
     color: #fff;
     padding-right: 5px;
-}
-.jsenabled .breadcrumb-button .moodle-actionmenu[data-enhance] a.dropdown-toggle:after {
-    content: "\f0d7";
-    font-family: "Font Awesome 5 Free";
-    font-size: 13px;
-	font-weight: 900;
-    color: #fff;
-	position: absolute;
 }
 
 /*================================================== * 
@@ -515,4 +517,40 @@ Moodle 3.7
 	color: [[setting:maincolor]];
 	content: "\f005";
 	padding-left: 5px;
+}
+
+/*================================================== * 
+Moodle 3.8
+=====================================================*/
+.grader-grading-panel .fa-bell-o::before {
+    content: "\f0f3";
+	font-weight: 400;
+}
+.grader-grading-panel .grader-grading-panel-display > h4:before {
+    display: inline;
+    font-family: "Font Awesome 5 Free";
+	font-size: 1em;
+	font-weight: 400;
+	content: "\f14a";
+}
+.grader-grading-panel .grader-grading-panel-display > h4#send-student-notifications-setting::before {
+    content: "\f0f3";
+}
+.grader-grading-panel .grader-grading-panel-display > h4 > img {
+	display: none;
+}
+.path-mod-forum .unified-grader .grader-module-content-display .no-post-container > h2::before {
+	display: block;
+	font-family: "Font Awesome 5 Free";
+	font-size: 3rem;
+	font-weight: 400;
+	content: "\f07c";
+	color: #fff;
+	padding: 1.5rem;
+	border-radius: 50%;
+	width: 3.25rem;
+	height: 3.25rem;
+	line-height: 3.25rem;
+	margin: 20px auto;
+	background: [[setting:maincolor]];
 }

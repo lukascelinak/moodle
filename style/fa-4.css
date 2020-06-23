@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('[[font:core|fontawesome-webfont.eot]]?v=#{$fa-version}');
+    src:
+        url('[[font:core|fontawesome-webfont.eot]]?#iefix&v=#{$fa-version}') format('embedded-opentype'),
+        url('[[font:core|fontawesome-webfont.woff2]]?v=#{$fa-version}') format('woff2'),
+        url('[[font:core|fontawesome-webfont.woff]]?v=#{$fa-version}') format('woff'),
+        url('[[font:core|fontawesome-webfont.ttf]]?v=#{$fa-version}') format('truetype'),
+        url('[[font:core|fontawesome-webfont.svg]]?v=#{$fa-version}#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* =========================================================== *
 Header
 ============================================================== */
@@ -7,11 +20,21 @@ Header
 #block-login div, #submit {
     font-size: 1.25em;
 }
+.profileblock .usermenu .caret {
+    display: none;
+}
+.profileblock .usermenu .userbutton::after {
+    content: "\f0d7";
+    font-family: FontAwesome;
+    font-size: 13px;
+    font-weight: 900;
+    color: #999;
+}
 
 /* =========================================================== *
 Navbar
 ============================================================== */
-ul.breadcrumb li:after { 
+ul.breadcrumb li:after, .breadcrumb-button > a::before, #page-admin-search .adminpagepath li + li::before {
 	content: "\f105";
 	font-family: FontAwesome;
 	font-weight: 900;
@@ -29,13 +52,6 @@ Moodle gear menus and admin tabs
     font-size: 19.5px;
     color: #fff;
     padding-right: 5px;
-}
-.jsenabled .breadcrumb-button .moodle-actionmenu[data-enhance] a.dropdown-toggle:after {
-    content: "\f0d7";
-    font-family: FontAwesome;
-    font-size: 13px;
-    color: #fff;
-	position: absolute;
 }
 
 /*================================================== * 
@@ -292,6 +308,7 @@ Blockicons by Shaun Daubney (theme_aardvark)
 .block_recent_activity .card-title::before {
     background-color: #38B9EC;
     content:"\f017";
+
 }
 .block_search_forums .card-title::before {
     background-color: #ffce00;
@@ -498,4 +515,40 @@ Moodle 3.7
 	color: [[setting:maincolor]];
 	content: "\f005";
 	padding-left: 5px;
+}
+
+/*================================================== * 
+Moodle 3.8
+=====================================================*/
+.grader-grading-panel .fa-bell-o::before {
+    content: "\f0a2";
+}
+.grader-grading-panel .grader-grading-panel-display > h4:before {
+    display: inline;
+    font-family: "FontAwesome";
+	font-size: 1em;
+	font-weight: 900;
+	content: "\f046";
+	padding-left: 5px;
+}
+.grader-grading-panel .grader-grading-panel-display > h4#send-student-notifications-setting::before {
+    content: "\f0a2";
+}
+.grader-grading-panel .grader-grading-panel-display > h4 > img {
+	display: none;
+}
+.path-mod-forum .unified-grader .grader-module-content-display .no-post-container > h2::before {
+	display: block;
+	font-family: "FontAwesome";
+	font-size: 3rem;
+	font-weight: 400;
+	content: "\f115";
+	color: #fff;
+	padding: 1.5rem;
+	border-radius: 50%;
+	width: 3.25rem;
+	height: 3.25rem;
+	line-height: 3.25rem;
+	margin: 20px auto;
+	background: [[setting:maincolor]];
 }

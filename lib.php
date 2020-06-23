@@ -17,7 +17,7 @@
 /**
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
 function theme_lambda_get_setting($setting, $format = false) {
@@ -120,7 +120,7 @@ function lambda_set_category_layout($css,$category_layout) {
 		$css = str_replace($tag, $replacement, $css);
 	}
 	else if ($category_layout == "1") {
-        $replacement = '#frontpage-course-list,.courses.frontpage-course-list-all{display:inline-block}.frontpage-course-list-enrolled .paging.paging-morelink::before{clear: both;content: "";display: table;}#frontpage-category-combo .category.loaded.with_children .content .courses .coursebox{margin-top:10px}.coursebox{float:left;width:325px;position:relative;border:1px solid #fff;box-shadow:0 0 10px rgba(0,0,0,.15);transition:all .3s ease-out 0s;padding:0;margin:0 30px 30px 0}.coursebox:hover{box-shadow:1px 4px 20px -2px rgba(0,0,0,.2);transform:translateY(-1px)}.coursebox h3.coursename{line-height:25px}.coursebox .course-btn,.coursebox h3.coursename{text-align:center;margin-top:0}.coursebox .content .summary{width:auto;padding:0 .5em;margin:0;height:140px;overflow:hidden}.coursebox .summary>div{overflow:hidden;text-align:justify;line-height:25px;max-height:100px}.coursebox .content .courseimage{width:100%!important;height:166px;margin:0 0 10px!important;float:unset}.coursebox .content .teachers{display:none}.coursebox .enrolmenticons,.coursebox .moreinfo{padding:0}.coursebox .enrolmenticons img{padding:5px!important;background:rgba(255,255,255,.75);border-radius:50%;height:16px;width:16px;float:left;position:absolute;top:10px;left:10px}.coursebox .enrolmenticons img+img{left:40px}.coursebox .enrolmenticons img+img+img{left:70px}.coursebox .enrolmenticons img+img+img+img{left:100px}.coursebox .enrolmenticons img+img+img+img+img{left:130px}@media (max-width:360px){.coursebox{width:85%}} #page-enrol-index #fitem_id_submitbutton{background: transparent; border: none;} @media (min-width:850px){#page-enrol-index .coursebox.clearfix{width:50%}}@media (max-width:849px){#page-enrol-index .coursebox.clearfix{width:99%}}#page-enrol-index .coursebox .content .summary,#page-enrol-index .coursebox .summary>div{height:auto;max-height:none}#page-enrol-index .fcontainer .col-md-9.form-inline.felement{width:100%;margin-left:0}#page-enrol-index #fitem_id_submitbutton .col-md-9.form-inline.felement{margin-left:0;float:left;display:block;width:auto}';
+        $replacement = '.frontpage-course-list-enrolled,.courses.frontpage-course-list-all,.course_category_tree .category-browse{display:flex;flex-wrap:wrap;justify-content:space-evenly;position:relative;margin-bottom:20px}#frontpage-category-combo .coursebox{float:left} #frontpage-category-combo .category.loaded.with_children .content .courses .coursebox{margin-top:10px} .coursebox{width: 325px; position: relative; border: 1px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,.15); transition: all .3s ease-out 0s; padding: 0; margin: 0 10px 30px 10px;}.coursebox:hover{box-shadow:1px 4px 20px -2px rgba(0,0,0,.2);transform:translateY(-1px)}.coursebox h3.coursename{line-height:25px}.coursebox .course-btn,.coursebox h3.coursename{text-align:center;margin-top:0}.coursebox .content .summary{width:auto;padding:0 .5em;margin:0;height:140px;overflow:hidden}.coursebox .summary>div{overflow:hidden;text-align:justify;line-height:25px;max-height:100px}.coursebox .content .courseimage{width:100%!important;height:166px;margin:0 0 10px!important;float:unset}.coursebox .content .teachers,.coursebox .content .custom_fields{display:none}.path-enrol .coursebox .content .teachers,.path-enrol .coursebox .content .custom_fields{display:block;padding: 0 .5em;margin: 0;}.coursebox .enrolmenticons,.coursebox .moreinfo{padding:0}.coursebox .enrolmenticons img{padding:5px!important;background:rgba(255,255,255,.75);border-radius:50%;height:16px;width:16px;float:left;position:absolute;top:10px;left:10px}.coursebox .enrolmenticons img+img{left:40px}.coursebox .enrolmenticons img+img+img{left:70px}.coursebox .enrolmenticons img+img+img+img{left:100px}.coursebox .enrolmenticons img+img+img+img+img{left:130px}@media (max-width:360px){.coursebox{width:85%}} #page-enrol-index #fitem_id_submitbutton{background: transparent; border: none;} @media (min-width:850px){#page-enrol-index .coursebox.clearfix{width:calc(100% - 20px)}#page-enrol-index #region-main .box.generalbox{width:calc(50% - 20px);float:left;padding:10px}} @media (max-width:849px){#page-enrol-index .coursebox.clearfix{width:99%}}#page-enrol-index .coursebox .content .summary,#page-enrol-index .coursebox .summary>div{height:auto;max-height:none}#page-enrol-index .fcontainer .col-md-9.form-inline.felement{width:100%;margin-left:0}#page-enrol-index #fitem_id_submitbutton .col-md-9.form-inline.felement{margin-left:0;float:left;display:block;width:auto} .courses > .paging.paging-morelink, .course_category_tree .subcategories > .paging.paging-morelink {text-align: left; position: absolute; bottom: -25px; left: 0;}';
 		$replacement .= '#myoverview_courses_view .row-fluid .span6{width:325px!important}#myoverview_courses_view .row-fluid .span6 .well{border:1px solid #fff;box-shadow:0 0 10px rgba(0,0,0,.15);transition:all .3s ease-out 0s;padding:0 0 10px;position:relative;margin-bottom:15px}#myoverview_courses_view .row-fluid .span6 .well .course-info-container{padding:0 5px;height:110px;overflow:hidden}.well .course-info-container p{overflow:hidden;text-align:justify;line-height:25px}.well .course-info-container h4.media-heading{line-height:25px;text-align:center}#myoverview_courses_view .row-fluid .span6 .well:hover{box-shadow:1px 4px 20px -2px rgba(0,0,0,.2);transform:translateY(-1px)}#myoverview_courses_view .course-info-container .media-heading a,#myoverview_timeline_courses .course-info-container h4 a{color:#555;margin-top:2em}#myoverview_courses_view .course-info-container p.text-muted,#myoverview_timeline_courses .course-info-container p.muted{color:#555}#myoverview_courses_view .myoverviewimg{height:166px}#myoverview_courses_view .course-info-container .progress-chart-container{position:absolute;left:225px;top:1.5em}.progress-chart-container .no-progress{display:none}.progress-chart-container .progress-doughnut .progress-indicator svg .circle{stroke:[[setting:maincolor]]}.progress-chart-container .progress-doughnut{background:rgba(255,255,255,.5)}.progress-chart-container .progress-doughnut .progress-text.has-percent{color:#333;font-weight:700}#myoverview_timeline_courses .progress-chart-container .no-progress{height:0;width:0;margin-bottom:-70px;display:block}#myoverview_timeline_courses .progress-chart-container .no-progress .icon{display:none}';
 		$css = str_replace($tag, $replacement, $css);
 	}
@@ -183,6 +183,8 @@ function lambda_set_customcss($css, $customcss) {
 }
 
 function theme_lambda_process_css($css, $theme) {
+	global $CFG;
+	
     $pagewidth = $theme->settings->pagewidth;
     $css = lambda_set_pagewidth1($css,$pagewidth);
 	$css = lambda_set_pagewidth2($css,$pagewidth);
@@ -606,7 +608,10 @@ function theme_lambda_process_css($css, $theme) {
     	$css = theme_lambda_set_background_repeat($css, $repeat, $size);
 	}
 	
-    return $css;
+	$csslambda = file_get_contents($CFG->dirroot . '/theme/lambda/bootstrapbase/moodle.css');
+	$csslambda .= "\n" . $css;
+	
+    return $csslambda;
 }
 
 function theme_lambda_set_customfontface($css, $font_heading_src, $font_body_src) {

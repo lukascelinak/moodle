@@ -17,7 +17,7 @@
 /**
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
 
@@ -30,7 +30,7 @@ echo $OUTPUT->doctype() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body <?php echo $OUTPUT->body_attributes(); ?>>
+<body <?php echo $OUTPUT->body_attributes(); ?> style="background: none;">
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
@@ -44,27 +44,7 @@ echo $OUTPUT->doctype() ?>
     }
 ?>
 
-<header role="banner" class="navbar navbar-fixed-top moodle-has-zindex <?php echo $hideclass; ?>">
-    <nav role="navigation" class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo
-                format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID)));
-                ?></a>
-            <?php echo $OUTPUT->navbar_button(); ?>
-            <div class="nav-collapse collapse">
-                <?php echo $OUTPUT->custom_menu(); ?>
-                <ul class="nav pull-right">
-                    <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-                    <li class="navbar-text"><?php echo $OUTPUT->user_menu(); ?></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
 <div id="page" class="container-fluid">
-
-    <?php echo $OUTPUT->full_header(); ?>
 
     <div id="page-content" class="row-fluid">
         <section id="region-main" class="span12">

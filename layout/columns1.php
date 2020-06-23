@@ -17,7 +17,7 @@
 /**
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
 
@@ -71,12 +71,9 @@ echo $OUTPUT->doctype() ?>
 	<footer id="page-footer" class="container-fluid">
 		<?php require_once(dirname(__FILE__).'/includes/footer.php'); echo $OUTPUT->login_info();?>
 	</footer>
-
-    <?php echo $OUTPUT->standard_end_of_body_html() ?>
-
-<!--[if lte IE 9]>
-<script src="<?php echo $CFG->wwwroot;?>/theme/lambda/javascript/ie/iefix.js"></script>
-<![endif]-->
+</div>
+<?php echo $OUTPUT->lambda_footer_scripts(); ?>
+<?php echo $OUTPUT->standard_end_of_body_html() ?>
 
 </body>
 </html>

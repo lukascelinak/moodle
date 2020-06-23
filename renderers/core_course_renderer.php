@@ -17,7 +17,7 @@
 /**
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
  
@@ -101,6 +101,15 @@
 				$i++;
             }
             $content .= '</div>'; // .teachers
+        }
+		
+        // Display custom fields.
+        if ($course->has_custom_fields()) {
+			$content .= '<div class="custom_fields">';
+            $handler = core_course\customfield\course_handler::create();
+            $customfields = $handler->display_custom_fields_data($course->get_custom_fields());
+            $content .= \html_writer::tag('div', $customfields, ['class' => 'customfields-container']);
+			$content .= '</div>';
         }
 		
 		$content .= '<div class="course-btn"><p><a class="btn btn-primary" href="'.new moodle_url('/course/view.php', array('id' => $course->id)).'">'.get_string('entercourse').'</a></p></div>';

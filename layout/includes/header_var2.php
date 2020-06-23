@@ -17,15 +17,10 @@
 /**
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
 global $USER, $CFG;
-$login_token = '';
-if (method_exists('\core\session\manager','get_login_token')) {
-	$token = s(\core\session\manager::get_login_token());
-	$login_token = '<input type="hidden" name="logintoken" value="'.$token.'" />';
-}
 
 $fa_user_icon = "fa fa-user"; if ($PAGE->theme->settings->use_fa5 == 1) {$fa_user_icon = "fas fa-user";}
 $fa_user_icon_alt = "fa fa-user-o"; if ($PAGE->theme->settings->use_fa5 == 1) {$fa_user_icon_alt = "far fa-user";}
@@ -103,11 +98,11 @@ $fa_pass_icon = "fa fa-key"; if ($PAGE->theme->settings->use_fa5 == 1) {$fa_pass
 
 <?php } else { ?>
 
-<form class="navbar-form" method="post" action="<?php echo $wwwroot; ?>/login/index.php?authldap_skipntlmsso=1">
+<form class="navbar-form" method="post" action="<?php p($wwwroot) ?>/login/index.php">
 		<div id="block-login" style="padding: 0;text-align: inherit;">
 			<div id="user"><i class="<?php echo $fa_user_icon; ?>"></i></div>
 			<label for="inputName" class="lambda-sr-only"><?php echo $username; ?></label>
-			<?php echo $login_token; ?>
+			<input type="hidden" name="logintoken" value="<?php echo s(\core\session\manager::get_login_token()); ?>" />
 			<input id="inputName" class="span2" type="text" name="username" placeholder="<?php echo $username; ?>" style="width: 100%;display: block;margin-bottom: 5px;">
 				<div id="pass"><i class="<?php echo $fa_pass_icon; ?>"></i></div>
 				<label for="inputPassword" class="lambda-sr-only"><?php echo get_string('password'); ?></label>

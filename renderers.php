@@ -15,11 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Parent theme: Bootstrapbase by Bas Brands
+ * Built on: Essential by Julian Ridden
  *
  * @package   theme_lambda
- * @copyright 2019 redPIthemes
+ * @copyright 2020 redPIthemes
  *
  */
 
 require_once('renderers/core_renderer.php');
 require_once('renderers/core_course_renderer.php');
+require_once('renderers/mod_assign_renderer.php');
