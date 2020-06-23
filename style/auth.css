@@ -1,0 +1,147 @@
+/* =========================================================== *
+Authentication buttons
+============================================================== */
+a.singinprovider .social-button::before {
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: -7px 10px -7px -7px;
+    padding: 7px;
+    text-indent: 0;
+    vertical-align: bottom;
+    font-size: 20px;
+    position: relative;
+    top: 0;
+    display: inline-block;
+    font-family: "FontAwesome";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    min-width: 24px;
+    line-height: unset;;
+    text-align: center;
+    content: "\f090";
+}
+a.singinprovider .social-button {
+    text-align: center;
+    background: #ccc;
+    display: inline-block;
+    text-align: left;
+    min-width: 185px;
+    color: #fff;
+    padding: 7px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    transition: background-color 0.15s;
+}
+a.singinprovider .social-button.google::before {
+	content: "\f0d5";
+}
+a.singinprovider .social-button.google {
+    background-color: #dc4e41;
+}
+a.singinprovider .social-button.google:hover {
+    background-color: #c23321;
+}
+a.singinprovider .social-button.dropbox::before {
+	content: "\f16b";
+}
+a.singinprovider .social-button.dropbox {
+    background-color: #1087dd;
+}
+a.singinprovider .social-button.dropbox:hover {
+    background-color: #0d6aad;
+}
+a.singinprovider .social-button.battlenet::before {
+	content: "\f11b";
+}
+a.singinprovider .social-button.battlenet {
+    background-color: #00b6ff;
+}
+.social-button.battlenet:hover {
+    background-color: #006a9b;
+}
+a.singinprovider .social-button.facebook::before {
+	content: "\f09a";
+}
+a.singinprovider .social-button.facebook {
+    background-color: #3b5998;
+}
+a.singinprovider .social-button.facebook:hover {
+    background-color: #2d4373;
+}
+a.singinprovider .social-button.github::before {
+	content: "\f09b";
+}
+a.singinprovider .social-button.github {
+    background-color: #555;
+}
+a.singinprovider .social-button.github:hover {
+    background-color: #2b2b2b;
+}
+a.singinprovider .social-button.linkedin::before {
+	content: "\f0e1";
+}
+a.singinprovider .social-button.linkedin {
+    background-color: #007bb6;
+}
+a.singinprovider .social-button.linkedin:hover {
+    background-color: #005983;
+}
+a.singinprovider .social-button.microsoft::before {
+	content: "\f17a";
+}
+a.singinprovider .social-button.microsoft {
+    background-color: #2672ec;
+}
+a.singinprovider .social-button.microsoft:hover {
+    background-color: #125acd;
+}
+a.singinprovider .social-button.vk::before {
+	content: "\f189";
+}
+a.singinprovider .social-button.vk {
+    background-color: #587ea3;
+}
+a.singinprovider .social-button.vk:hover {
+    background-color: #466482;
+}
+.pagelayout-login .profileblock a.singinprovider {
+    display: none !important;
+}
+.pagelayout-login .forgotpass.oauth2 {
+    display: none;
+}
+
+.login-header .potentialidps > h6 {
+    text-align: right;
+    font-size: 1rem;
+    margin-top: 0;
+}
+.login-header .potentialidp {
+    display: inline-block;
+    float: right;
+    margin: 0 12px;
+}
+.loginbox .potentialidps .potentialidplist div {
+    display: inline-flex;
+    margin: 0 4px;
+}
+.loginbox .potentialidp a {
+    padding: 4px 16px;
+}
+.login-header  .potentialidplist {
+    margin-right: -12px;
+}
+.loginbox .potentialidps .potentialidplist {
+    margin-left: 0;
+}
+.potentialidplist .potentialidp a {
+    background-color: rgba(255,255,255,0.3);
+    border: 1px solid #f2f2f2;
+    border-radius: 2px;
+    color: #757575;
+    font-weight: bold;
+    box-shadow: none;
+}
+.potentialidplist .potentialidp a:hover {
+    box-shadow: 1px 1px 2px rgba(0,0,0,.1);
+}
