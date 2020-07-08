@@ -552,3 +552,14 @@ Moodle 3.8
 	margin: 20px auto;
 	background: [[setting:maincolor]];
 }
+
+/*================================================== * 
+Moodle 3.9
+=====================================================*/
+.modchooser .optionactions .btn.btn-icon[data-favourited="true"]::before {
+    content: "\f005";
+    font-family: "FontAwesome";
+    font-size: 16px;
+    font-weight: 900;
+    color: #999;
+}

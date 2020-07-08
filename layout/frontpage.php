@@ -115,12 +115,9 @@ echo $OUTPUT->doctype() ?>
             	?>
         		</section>
         	<?php
-        	if ($hasfrontpageblocks==1) {
-
-                    
+        	if ($hasfrontpageblocks==1) { 
 				if ($standardlayout) {echo $OUTPUT->blocks('side-pre', 'span4 desktop-first-column pull-left');}
 				else if (!$sidebar) {echo $OUTPUT->blocks('side-pre', 'span4 desktop-first-column pull-right');}
-                                
 			} ?>
             </div>
         	</div>

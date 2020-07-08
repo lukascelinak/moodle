@@ -405,7 +405,7 @@
 		return html_writer::tag($tag, $html);
     }
     
-    public function edit_button(moodle_url $url) {
+	public function context_header_settings_menu() {
         $context = $this->page->context;
         $menu = new action_menu();
 
@@ -413,23 +413,29 @@
         $currentnode = end($items);
 
         $showcoursemenu = false;
+        $showusermenu = false;
+		$participantsmenu = false;
+
         // We are on the course home page.
         if (($context->contextlevel == CONTEXT_COURSE) &&
                 !empty($currentnode) &&
                 ($currentnode->type == navigation_node::TYPE_COURSE || $currentnode->type == navigation_node::TYPE_SECTION)) {
             $showcoursemenu = true;
         }
+
         $courseformat = course_get_format($this->page->course);
         // This is a single activity course format, always show the course menu on the activity main page.
         if ($context->contextlevel == CONTEXT_MODULE &&
                 !$courseformat->has_view_page()) {
+
             $this->page->navigation->initialise();
             $activenode = $this->page->navigation->find_active_node();
             // If the settings menu has been forced then show the menu.
             if ($this->page->is_settings_menu_forced()) {
                 $showcoursemenu = true;
             } else if (!empty($activenode) && ($activenode->type == navigation_node::TYPE_ACTIVITY ||
-                    $activenode->type == navigation_node::TYPE_RESOURCE)) {
+                            $activenode->type == navigation_node::TYPE_RESOURCE)) {
+
                 // We only want to show the menu on the first page of the activity. This means
                 // the breadcrumb has no additional nodes.
                 if ($currentnode && ($currentnode->key == $activenode->key && $currentnode->type == $activenode->type)) {
@@ -437,6 +443,14 @@
                 }
             }
         }
+
+        // This is the user profile page.
+        if ($context->contextlevel == CONTEXT_USER &&
+                !empty($currentnode) &&
+                ($currentnode->key === 'myprofile')) {
+            $showusermenu = true;
+        }
+
         if ($showcoursemenu) {
             $settingsnode = $this->page->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
             if ($settingsnode) {
@@ -451,84 +465,26 @@
                     $menu->add_secondary_action($link);
                 }
             }
-        }
-        return $this->render($menu);
-    }
-	
-	public function context_header_settings_menu() {
-        $context = $this->page->context;
-        $menu = new action_menu();
-		
-		$showusermenu = false;
-		$buildmenu = false;
-		$participantsmenu = false;
-
-        $items = $this->page->navbar->get_items();
-        $currentnode = end($items);        
-        // This is the user profile page.
-        if ($context->contextlevel == CONTEXT_USER &&
-                !empty($currentnode) &&
-                ($currentnode->key === 'myprofile')) {
-            $showusermenu = true;
-        }	
-        if ($showusermenu) {
+        } else if ($showusermenu) {
             // Get the course admin node from the settings navigation.
             $settingsnode = $this->page->settingsnav->find('useraccount', navigation_node::TYPE_CONTAINER);
             if ($settingsnode) {
                 // Build an action menu based on the visible nodes from this navigation tree.
                 $this->build_action_menu_from_navigation($menu, $settingsnode);
             }
-        }
-		
-		if ($context->contextlevel == CONTEXT_MODULE) {
-            $this->page->navigation->initialise();
-            $node = $this->page->navigation->find_active_node();
-            // If the settings menu has been forced then show the menu.
-            if ($this->page->is_settings_menu_forced()) {
-                $buildmenu = true;
-            } else if (!empty($node) && ($node->type == navigation_node::TYPE_ACTIVITY ||
-                    $node->type == navigation_node::TYPE_RESOURCE)) {
-                $items = $this->page->navbar->get_items();
-                $navbarnode = end($items);
-                // We only want to show the menu on the first page of the activity. This means
-                // the breadcrumb has no additional nodes.
-                if ($navbarnode && ($navbarnode->key === $node->key && $navbarnode->type == $node->type)) {
-                    $buildmenu = true;
-                }
-            }
-            if ($buildmenu) {
-                // Get the course admin node from the settings navigation.
-                $node = $this->page->settingsnav->find('modulesettings', navigation_node::TYPE_SETTING);
-                if ($node) {
-                    // Build an action menu based on the visible nodes from this navigation tree.
-                    $this->build_action_menu_from_navigation($menu, $node);
-                }
-            }
-        } else if ($context->contextlevel == CONTEXT_COURSECAT) {
-            // For course category context, show category settings menu, if we're on the course category page.
-            if ($this->page->pagetype === 'course-index-category') {
-                $node = $this->page->settingsnav->find('categorysettings', navigation_node::TYPE_CONTAINER);
-                if ($node) {
-                    // Build an action menu based on the visible nodes from this navigation tree.
-                    $this->build_action_menu_from_navigation($menu, $node);
-                }
-            }
         } else {
-            $items = $this->page->navbar->get_items();
+			$items = $this->page->navbar->get_items();
             $navbarnode = end($items);
-
-            if ($navbarnode && ($navbarnode->key === 'participants')) {
+			if ($navbarnode && ($navbarnode->key === 'participants')) {
 				$participantsmenu = true;
                 $node = $this->page->settingsnav->find('users', navigation_node::TYPE_CONTAINER);
                 if ($node) {
                     // Build an action menu based on the visible nodes from this navigation tree.
                     $this->build_action_menu_from_navigation($menu, $node);
                 }
-
-            }
-        }
-		
-        if ((!$menu->is_empty()) && ($showusermenu || $buildmenu || $participantsmenu)) {return $this->render($menu);}
+			}
+		}
+        return $this->render($menu);
     }
 	
 	protected function build_action_menu_from_navigation(action_menu $menu,

@@ -39,6 +39,14 @@ $('.navbar .dropdown').hover(function() {
         	$('.dropdown .dropdown-menu:not(.lambda-login)').slideUp("fast");
     	}                       
 	});
+	$(document).on('click', '.modchooser button[data-action="show-option-summary"]', function(event) {
+		$('.carousel-item[data-region="modules"]').toggleClass("active");
+		$('.carousel-item[data-region="help"]').toggleClass("active");
+	});
+	$(document).on('click', '.modchooser button.closeoptionsummary ', function(event) {
+		$('.carousel-item[data-region="modules"]').toggleClass("active");
+		$('.carousel-item[data-region="help"]').toggleClass("active");
+	});
 
 	 });
 	}) (jQuery);
