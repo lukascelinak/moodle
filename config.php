@@ -44,7 +44,7 @@ $THEME->layouts = array(
     // Front page.
     'frontpage' => array(
         'file' => 'frontpage.php',
-        'regions' => array('side-pre', 'side-post', 'footer-left', 'footer-middle', 'footer-right', 'hidden-dock'),
+        'regions' => array('side-pre', 'side-post', 'footer-left','center-pre', 'footer-middle', 'footer-right', 'hidden-dock'),
         'defaultregion' => 'hidden-dock',
     ),
     // Most backwards compatible layout without the blocks - this is the layout used by default.

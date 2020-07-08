@@ -22,6 +22,7 @@
  */
 $lambda_body_attributes = 'has-region-side-pre has-region-side-post';
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
+$hascenterpre = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('center-pre', $OUTPUT));
 if ($hassidepre) {$lambda_body_attributes .= ' used-region-side-pre';} else {$lambda_body_attributes .= ' empty-region-side-pre';}
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 if ($hassidepost) {$lambda_body_attributes .= ' used-region-side-post';} else {$lambda_body_attributes .= ' empty-region-side-post';}
@@ -95,7 +96,16 @@ echo $OUTPUT->doctype() ?>
         	<div id="<?php echo $regionbsid ?>">
             <div class="row-fluid">
             	<section id="region-main" class="span12">
-        <?php } ?>
+        <?php }                     if($hascenterpre){
+                        ?>
+<div id="region-center-pre" class="block-region">
+<div class="region-content">
+<?php echo $OUTPUT->blocks_for_region('center-pre'); ?>
+</div>
+</div>
+<?php }?>
+                    
+                    
             	<?php
             		echo $OUTPUT->course_content_header();
 					if ($carousel_pos=='0') require_once(dirname(__FILE__).'/includes/carousel.php');
@@ -105,9 +115,12 @@ echo $OUTPUT->doctype() ?>
             	?>
         		</section>
         	<?php
-        	if ($hasfrontpageblocks==1) { 
+        	if ($hasfrontpageblocks==1) {
+
+                    
 				if ($standardlayout) {echo $OUTPUT->blocks('side-pre', 'span4 desktop-first-column pull-left');}
 				else if (!$sidebar) {echo $OUTPUT->blocks('side-pre', 'span4 desktop-first-column pull-right');}
+                                
 			} ?>
             </div>
         	</div>
