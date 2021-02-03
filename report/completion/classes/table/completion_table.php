@@ -26,11 +26,9 @@ declare(strict_types=1);
 
 namespace report_completion\table;
 
-use DateTime;
 use context;
 use core_table\dynamic as dynamic_table;
 use core_table\local\filter\filterset;
-use core_user\output\status_field;
 use report_completion\table\completion_table_search;
 use moodle_url;
 
@@ -154,9 +152,10 @@ class completion_table extends \table_sql implements dynamic_table {
      * @param string $downloadhelpbutton
      */
     public function out($pagesize, $useinitialsbar, $downloadhelpbutton = '') {
-        global $CFG, $DB,$USER, $OUTPUT, $PAGE;
+        global $CFG, $DB, $USER, $OUTPUT, $PAGE;
         $this->modinfo = get_fast_modinfo($this->course);
         $this->completion = new \completion_info($this->course);
+        $this->downloadable = true;
         $this->set_attribute('class', 'table-bordered');
         // Define the headers and columns.
         $headers = [];
@@ -176,7 +175,7 @@ class completion_table extends \table_sql implements dynamic_table {
                 $iconlink = '';
                 $iconalt = ''; // Required
                 $iconattributes = array('class' => 'icon');
-                $name="criterium".$criterion->id;
+                $name = "criterium" . $criterion->id;
                 switch ($criterion->criteriatype) {
                     case COMPLETION_CRITERIA_TYPE_ACTIVITY:
 
@@ -227,7 +226,7 @@ class completion_table extends \table_sql implements dynamic_table {
 
         $headers[] = $this->is_downloading() ? get_string('coursecomplete', 'completion') : '<div class="rotated-text-container"><span class="rotated-text">' . get_string('coursecomplete', 'completion') . '</span>' . $OUTPUT->pix_icon('i/course', get_string('coursecomplete', 'completion')) . '</div>';
         $columns[] = "coursecomplete";
-         $extrafields[] = "coursecomplete";
+        $extrafields[] = "coursecomplete";
         $this->no_sorting('coursecomplete');
 
         if ($this->is_downloading()) {
@@ -318,9 +317,12 @@ class completion_table extends \table_sql implements dynamic_table {
         $psearch = new completion_table_search($this->course, $this->context, $this->filterset);
 
         $total = $psearch->get_total_participants_count($twhere, $tparams);
-
-        $this->pagesize($pagesize, $total);
-
+        
+        if ($this->is_downloading()) {
+            $this->pagesize($total, $total);
+        } else {
+            $this->pagesize($pagesize, $total);
+        }
         $sort = $this->get_sql_sort();
         if ($sort) {
             $sort = 'ORDER BY ' . $sort;
@@ -334,7 +336,7 @@ class completion_table extends \table_sql implements dynamic_table {
             foreach ($this->get_completion_criteria() as $criterion) {
                 $criteria_completion = $this->completion->get_user_completion($user->id, $criterion);
                 $is_complete = $criteria_completion->is_complete();
-                 $name="criterium".$criterion->id;
+                $name = "criterium" . $criterion->id;
                 // Handle activity completion differently
                 if ($criterion->criteriatype == COMPLETION_CRITERIA_TYPE_ACTIVITY) {
 
@@ -344,7 +346,7 @@ class completion_table extends \table_sql implements dynamic_table {
                     $progress = $this->get_user_progress($user->id);
                     // Get progress information and state
                     if (array_key_exists($activity->id, $progress)) {
-                        $state = $user->progress[$activity->id]->completionstate;
+                        $state = $progress[$activity->id]->completionstate;
                     } else if ($is_complete) {
                         $state = COMPLETION_COMPLETE;
                     } else {
@@ -426,7 +428,7 @@ class completion_table extends \table_sql implements dynamic_table {
 
                 if ($this->is_downloading()) {
                     $name = $name . "date";
-                    $user->$name =  $a->date;
+                    $user->$name = $a->date;
                 }
             }
 
@@ -455,7 +457,7 @@ class completion_table extends \table_sql implements dynamic_table {
             $fulldescribe = get_string('progress-title', 'completion', $a);
 
             $user->coursecomplete = $this->is_downloading() ? $describe : $OUTPUT->pix_icon('i/completion-auto-' . $completiontype, $fulldescribe);
-            
+
             if ($this->is_downloading()) {
                 $user->coursecompletedate = $date;
             }

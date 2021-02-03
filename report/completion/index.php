@@ -70,6 +70,8 @@ $PAGE->set_url('/report/completion/index.php', array(
     'newcourse' => $newcourse,
         'course' => $courseid));
 
+$url = new moodle_url('/report/completion/index.php', array('course'=>$course->id));
+$PAGE->set_url($url);
 $PAGE->set_pagelayout('report');
 
 // Not needed anymore.
