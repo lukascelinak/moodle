@@ -111,7 +111,7 @@ class admin_uploaduser_form2 extends moodleform {
         $mform->hideIf('uuupdatetype', 'uutype', 'eq', UU_USER_ADDNEW);
         $mform->hideIf('uuupdatetype', 'uutype', 'eq', UU_USER_ADDINC);
 
-        $choices = array(0 => get_string('nochanges', 'tool_uploaduser'), 1 => get_string('update'));
+        $choices = array(0 => get_string('nochanges', 'tool_uploaduser'), 1 => get_string('update'),2 => get_string('reset'));
         $mform->addElement('select', 'uupasswordold', get_string('uupasswordold', 'tool_uploaduser'), $choices);
         $mform->setDefault('uupasswordold', 0);
         $mform->hideIf('uupasswordold', 'uutype', 'eq', UU_USER_ADDNEW);
@@ -367,7 +367,7 @@ class admin_uploaduser_form2 extends moodleform {
         if (!in_array('password', $columns)) {
             switch ($optype) {
                 case UU_USER_UPDATE:
-                    if (!empty($data['uupasswordold'])) {
+                    if (!empty($data['uupasswordold'])&&$data['uupasswordold']!=2) {
                         $errors['uupasswordold'] = get_string('missingfield', 'error', 'password');
                     }
                     break;
@@ -376,7 +376,7 @@ class admin_uploaduser_form2 extends moodleform {
                     if (empty($data['uupasswordnew'])) {
                         $errors['uupasswordnew'] = get_string('missingfield', 'error', 'password');
                     }
-                    if  (!empty($data['uupasswordold'])) {
+                    if  (!empty($data['uupasswordold'])&&$data['uupasswordold']!=2) {
                         $errors['uupasswordold'] = get_string('missingfield', 'error', 'password');
                     }
                     break;
