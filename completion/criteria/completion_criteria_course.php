@@ -131,13 +131,13 @@ class completion_criteria_course extends completion_criteria {
      *
      * @return string
      */
-    public function get_title_detailed() {
+    public function get_title_detailed($full=false) {
         global $DB;
 
         $prereq = $DB->get_record('course', array('id' => $this->courseinstance));
         $coursecontext = context_course::instance($prereq->id, MUST_EXIST);
         $fullname = format_string($prereq->fullname, true, array('context' => $coursecontext));
-        return shorten_text(urldecode($fullname));
+        return $full ? urldecode($fullname):shorten_text(urldecode($fullname));
     }
 
     /**

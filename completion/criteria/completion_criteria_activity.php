@@ -181,12 +181,14 @@ class completion_criteria_activity extends completion_criteria {
      *
      * @return  string
      */
-    public function get_title_detailed() {
+    public function get_title_detailed($full=false) {
         global $DB;
         $module = $DB->get_record('course_modules', array('id' => $this->moduleinstance));
         $activity = $DB->get_record($this->module, array('id' => $module->instance));
-
-        return shorten_text(format_string($activity->name, true,
+        
+        return $full ? format_string($activity->name, true,
+                array('context' => context_module::instance($module->id)))
+                :shorten_text(format_string($activity->name, true,
                 array('context' => context_module::instance($module->id))));
     }
 
