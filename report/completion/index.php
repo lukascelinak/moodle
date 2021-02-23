@@ -68,9 +68,9 @@ $PAGE->set_url('/report/completion/index.php', array(
     'contextid' => $contextid,
     'id' => $courseid,
     'newcourse' => $newcourse,
-        'course' => $courseid));
+    'course' => $courseid));
 
-$url = new moodle_url('/report/completion/index.php', array('course'=>$course->id));
+$url = new moodle_url('/report/completion/index.php', array('course' => $course->id));
 $PAGE->set_url($url);
 $PAGE->set_pagelayout('report');
 
@@ -82,12 +82,11 @@ require_login($course);
 require_capability('report/completion:view', $context);
 
 course_require_view_participants($context);
-user_list_view($course, $context);
 
 // Get group mode
 $group = groups_get_course_group($course, true); // Supposed to verify group
 if ($group === 0 && $course->groupmode == SEPARATEGROUPS) {
-    require_capability('moodle/site:accessallgroups',$context);
+    require_capability('moodle/site:accessallgroups', $context);
 }
 
 // Retrieve course_module data for all modules in the course
@@ -97,25 +96,25 @@ $modinfo = get_fast_modinfo($course);
 $completion = new completion_info($course);
 
 if (!$completion->has_criteria()) {
-    print_error('nocriteriaset', 'completion', $CFG->wwwroot.'/course/report.php?id='.$course->id);
+    print_error('nocriteriaset', 'completion', $CFG->wwwroot . '/course/report.php?id=' . $course->id);
 }
 
 $strreports = get_string("reports");
-$strcompletion = get_string('pluginname','report_completion');
+$strcompletion = get_string('pluginname', 'report_completion');
 
 $PAGE->set_title($strcompletion);
 $PAGE->set_heading($course->fullname);
 
-$filterset = new \report_completion\table\completion_table_filterset();
+$filterset = new \core_user\table\participants_filterset();
 $filterset->add_filter(new integer_filter('courseid', filter::JOINTYPE_DEFAULT, [(int) $course->id]));
 
-$participanttable = new \report_completion\table\completion_table("user-index-participants-{$course->id}",$course);
+$participanttable = new \report_completion\table\completion_table("user-index-participants-{$course->id}", $course);
 $participanttable->is_downloading($download, 'test', 'testing123');
 
 if (!$participanttable->is_downloading()) {
-echo $OUTPUT->header();
-echo $OUTPUT->heading($strcompletion);
- $PAGE->requires->js_call_amd('report_progress/completion_override', 'init', [fullname($USER)]);
+    echo $OUTPUT->header();
+    echo $OUTPUT->heading($strcompletion);
+    $PAGE->requires->js_call_amd('report_progress/completion_override', 'init', [fullname($USER)]);
 }
 
 $canaccessallgroups = has_capability('moodle/site:accessallgroups', $context);
@@ -154,7 +153,8 @@ if ($urlgroupid > 0 && ($course->groupmode != SEPARATEGROUPS || $canaccessallgro
     $grouprenderer = $PAGE->get_renderer('core_group');
     $groupdetailpage = new \core_group\output\group_details($urlgroupid);
     if (!$participanttable->is_downloading()) {
-    echo $grouprenderer->group_details($groupdetailpage);}
+        echo $grouprenderer->group_details($groupdetailpage);
+    }
 }
 
 // Filter by role if passed via URL (used on profile page).
@@ -169,7 +169,8 @@ if ($roleid) {
 
 $userrenderer = $PAGE->get_renderer('core_user');
 if (!$participanttable->is_downloading()) {
-echo $userrenderer->participants_filter($context, $participanttable->uniqueid);}
+    echo $userrenderer->participants_filter($context, $participanttable->uniqueid);
+}
 
 ob_start();
 $participanttable->set_filterset($filterset);
@@ -177,18 +178,27 @@ $participanttable->out($perpage, true);
 $participanttablehtml = ob_get_contents();
 ob_end_clean();
 
+echo html_writer::tag(
+    'p',
+    get_string('countparticipantsfound', 'core_user', $participanttable->totalrows),
+    [
+        'data-region' => 'participant-count',
+    ]
+);
+
 if (!$participanttable->is_downloading()) {
-echo $participanttablehtml;}
+    echo $participanttablehtml;
+}
 /*
-$csvurl = new moodle_url('/report/completion/index.php', array('course' => $course->id, 'format' => 'csv'));
-$excelurl = new moodle_url('/report/completion/index.php', array('course' => $course->id, 'format' => 'excelcsv'));*/
+  $csvurl = new moodle_url('/report/completion/index.php', array('course' => $course->id, 'format' => 'csv'));
+  $excelurl = new moodle_url('/report/completion/index.php', array('course' => $course->id, 'format' => 'excelcsv')); */
 if (!$participanttable->is_downloading()) {/*
-print '<ul class="progress-actions"><li><a href="index.php?course=' . $course->id .
-        '&amp;format=csv">' . get_string('csvdownload', 'completion') . '</a></li>
-    <li><a href="index.php?course=' . $course->id . '&amp;format=excelcsv">' .
-        get_string('excelcsvdownload', 'completion') . '</a></li></ul>';
-*/
-echo $OUTPUT->footer($course);
+  print '<ul class="progress-actions"><li><a href="index.php?course=' . $course->id .
+  '&amp;format=csv">' . get_string('csvdownload', 'completion') . '</a></li>
+  <li><a href="index.php?course=' . $course->id . '&amp;format=excelcsv">' .
+  get_string('excelcsvdownload', 'completion') . '</a></li></ul>';
+ */
+    echo $OUTPUT->footer($course);
 }
 // Trigger a report viewed event.
 $event = \report_completion\event\report_viewed::create(array('context' => $context));

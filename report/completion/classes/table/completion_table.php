@@ -29,7 +29,8 @@ namespace report_completion\table;
 use context;
 use core_table\dynamic as dynamic_table;
 use core_table\local\filter\filterset;
-use report_completion\table\completion_table_search;
+use core_user\output\status_field;
+use core_user\table\participants_search;
 use moodle_url;
 
 defined('MOODLE_INTERNAL') || die;
@@ -160,6 +161,20 @@ class completion_table extends \table_sql implements dynamic_table {
         // Define the headers and columns.
         $headers = [];
         $columns = [];
+        
+      /*  $bulkoperations = has_capability('moodle/course:bulkmessaging', $this->context);
+        if ($bulkoperations) {
+            $mastercheckbox = new \core\output\checkbox_toggleall('participants-table', true, [
+                'id' => 'select-all-participants',
+                'name' => 'select-all-participants',
+                'label' => get_string('selectall'),
+                'labelclasses' => 'sr-only',
+                'classes' => 'm-1',
+                'checked' => false,
+            ]);
+            $headers[] = $OUTPUT->render($mastercheckbox);
+            $columns[] = 'select';
+        }*/
 
         $headers[] = get_string('fullname');
         $columns[] = 'fullname';
@@ -168,6 +183,18 @@ class completion_table extends \table_sql implements dynamic_table {
         foreach ($extrafields as $field) {
             $headers[] = get_user_field_name($field);
             $columns[] = $field;
+        }
+
+        // Get the list of fields we have to hide.
+        $hiddenfields = array();
+        if (!has_capability('moodle/course:viewhiddenuserfields', $this->context)) {
+            $hiddenfields = array_flip(explode(',', $CFG->hiddenuserfields));
+        }
+        // Add column for groups if the user can view them.
+        $canseegroups = !isset($hiddenfields['groups']);
+        if ($canseegroups) {
+            $headers[] = get_string('groups');
+            $columns[] = 'groups';
         }
         if ($this->get_completion_criteria()) {
             foreach ($this->get_completion_criteria() as $criterion) {
@@ -208,8 +235,11 @@ class completion_table extends \table_sql implements dynamic_table {
                 if (!$iconalt) {
                     $iconalt = $criterion->get_title();
                 }
-
-                $details = $criterion->get_title_detailed();
+                if ($this->is_downloading()) {
+                    $details = $criterion->get_title_detailed(true);
+                } else {
+                    $details = $criterion->get_title_detailed();
+                }
                 $icon = $iconlink ? '<a href="' . $iconlink . '" title="' . $iconattributes['title'] . '">' . $OUTPUT->render($criterion->get_icon($iconalt, $iconattributes)) . '</a>' : $OUTPUT->render($criterion->get_icon($iconalt, $iconattributes));
 
                 $headers[] = $this->is_downloading() ? $details : "<div class=\"rotated-text-container\"><span class=\"rotated-text\">{$details}</span>{$icon}</div>";
@@ -245,12 +275,35 @@ class completion_table extends \table_sql implements dynamic_table {
         $this->sortable(true, 'lastname');
 
         $this->set_attribute('id', 'completion');
-
+        if ($canseegroups) {
+            $this->groups = groups_get_all_groups($this->courseid, 0, 0, 'g.*', true);
+        }
         $this->countries = get_string_manager()->get_list_of_countries(true);
         $this->extrafields = $extrafields;
         parent::out($pagesize, $useinitialsbar, $downloadhelpbutton);
     }
 
+    /*
+        /**
+     * Generate the select column.
+     *
+     * @param \stdClass $data
+     * @return string
+    
+    public function col_select($data) {
+        global $OUTPUT;
+
+        $checkbox = new \core\output\checkbox_toggleall('participants-table', false, [
+            'classes' => 'usercheckbox m-1',
+            'id' => 'user' . $data->id,
+            'name' => 'user' . $data->id,
+            'checked' => false,
+            'label' => get_string('selectitem', 'moodle', fullname($data)),
+            'labelclasses' => 'accesshide',
+        ]);
+
+        return $OUTPUT->render($checkbox);
+    }*/
     /**
      * Generate the fullname column.
      *
@@ -286,6 +339,29 @@ class completion_table extends \table_sql implements dynamic_table {
     }
 
     /**
+     * Generate the groups column.
+     *
+     * @param \stdClass $data
+     * @return string
+     */
+    public function col_groups($data) {
+        $displayvalue = get_string('groupsnone');
+        $usergroups = [];
+        foreach ($this->groups as $coursegroup) {
+            if (isset($coursegroup->members[$data->id])) {
+                $usergroups[] = $coursegroup->name;
+            }
+        }
+
+        if (!empty($usergroups)) {
+            $displayvalue = implode(', ', $usergroups);
+        } else {
+            $$displayvalue = get_string('groupsnone');
+        }
+        return $displayvalue;
+    }
+
+    /**
      * This function is used for the extra user fields.
      *
      * These are being dynamically added to the table so there are no functions 'col_<userfieldname>' as
@@ -314,10 +390,10 @@ class completion_table extends \table_sql implements dynamic_table {
     public function query_db($pagesize, $useinitialsbar = true) {
         global $OUTPUT;
         list($twhere, $tparams) = $this->get_sql_where();
-        $psearch = new completion_table_search($this->course, $this->context, $this->filterset);
+        $psearch = new participants_search($this->course, $this->context, $this->filterset);
 
         $total = $psearch->get_total_participants_count($twhere, $tparams);
-        
+
         if ($this->is_downloading()) {
             $this->pagesize($total, $total);
         } else {
