@@ -60,7 +60,11 @@ echo $OUTPUT->doctype() ?>
 <?php } ?>
 
 <div id="wrapper">
-<?php require_once(dirname(__FILE__).'/includes/header.php'); ?>
+
+<?php require_once(dirname(__FILE__).'/includes/header.php'); 
+$buildregionmainsettings = !$PAGE->include_region_main_settings_in_header_actions();
+$regionmainsettingsmenu = $buildregionmainsettings ? $OUTPUT->region_main_settings_menu() : false;
+?>
 
 <div id="page" class="container-fluid">
 
@@ -68,7 +72,7 @@ echo $OUTPUT->doctype() ?>
     	<?php if (!($hide_breadrumb)) { ?>
         <div id="page-navbar" class="clearfix">
             <div class="breadcrumb-nav"><?php echo $OUTPUT->navbar(); ?></div>
-            <nav class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); echo $OUTPUT->context_header_settings_menu(); ?></nav>
+            <nav class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); echo $OUTPUT->context_header_settings_menu(); echo $regionmainsettingsmenu; ?></nav>
         </div>
         <?php } ?>
     </div>
@@ -94,7 +98,7 @@ echo $OUTPUT->doctype() ?>
 		} ?>
     </div>
 
-    <a href="#top" class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i><span class="lambda-sr-only"><?php echo get_string('back'); ?></span></a>
+    <a href="#top" class="back-to-top"><span class="lambda-sr-only"><?php echo get_string('back'); ?></span></a>
 
 </div>
 	<?php if ($CFG->version >= 2018120300) {echo $OUTPUT->standard_after_main_region_html();} ?>

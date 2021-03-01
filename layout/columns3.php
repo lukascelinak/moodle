@@ -45,6 +45,7 @@ if (right_to_left()) {
 } else {
     $regionbsid = 'region-bs-main-and-pre';
 }
+$body_attributes = $OUTPUT->body_attributes();
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
@@ -70,7 +71,10 @@ echo $OUTPUT->doctype() ?>
 
 <div id="wrapper">
 
-<?php require_once(dirname(__FILE__).'/includes/header.php'); ?>
+<?php require_once(dirname(__FILE__).'/includes/header.php'); 
+$buildregionmainsettings = !$PAGE->include_region_main_settings_in_header_actions();
+$regionmainsettingsmenu = $buildregionmainsettings ? $OUTPUT->region_main_settings_menu() : false;
+?>
 
 <!-- Start Main Regions -->
 <div id="page" class="container-fluid">
@@ -79,7 +83,7 @@ echo $OUTPUT->doctype() ?>
     	<?php if (!($hide_breadrumb)) { ?>
         <div id="page-navbar" class="clearfix">
             <div class="breadcrumb-nav"><?php echo $OUTPUT->navbar(); ?></div>
-            <nav class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); echo $OUTPUT->context_header_settings_menu(); ?></nav>
+            <nav class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); echo $OUTPUT->context_header_settings_menu(); echo $regionmainsettingsmenu; ?></nav>
         </div>
         <?php } ?>
     </div>
@@ -93,11 +97,11 @@ echo $OUTPUT->doctype() ?>
                 <section id="region-main" class="span8">
                 <?php } ?>
                     <?php
-					$body_attributes = $OUTPUT->body_attributes();
+					if (strpos($body_attributes, 'page-contentbank') !== false) {echo $OUTPUT->lambda_h5p_header();}
 	     			if (strpos($body_attributes, 'pagelayout-mypublic') !== false) {echo $OUTPUT->full_header();}
                     echo $OUTPUT->course_content_header();
                     echo $OUTPUT->main_content();
-					if ($CFG->version >= 2017111300) {echo $OUTPUT->activity_navigation();}
+					echo $OUTPUT->activity_navigation();
                     echo $OUTPUT->course_content_footer();
                     ?>
                 </section>
@@ -112,7 +116,7 @@ echo $OUTPUT->doctype() ?>
     
     <!-- End Main Regions -->
 
-    <a href="#top" class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i><span class="lambda-sr-only"><?php echo get_string('back'); ?></span></a>
+    <a href="#top" class="back-to-top"><span class="lambda-sr-only"><?php echo get_string('back'); ?></span></a>
 
 	</div>
 	<?php if ($CFG->version >= 2018120300) {echo $OUTPUT->standard_after_main_region_html();} ?>

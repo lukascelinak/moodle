@@ -32,12 +32,10 @@ $string['choosereadme'] = '
 <p style="text-align:center;"><img class="img-polaroid" src="lambda/pix/screenshot.jpg" /></p>
 </div>
 <hr />
-<div class="prom-box prom-box-default shadow2" style="margin-bottom:20px;">
-<h2>Theme Lambda - Thème adaptable pour Moodle</h2>
-</div>
-<h4>Résumé du thème</h4>
+<h2>Lambda - Responsive Moodle Theme</h2>
+<div class="divider line-01"></div>
 <div style="color: #888; text-transform: uppercase; margin-bottom:20px;">
-<p>Compatibilité: Moodle 2.5 - 3.9<br />Version du thème : 1.98.9<br />Parent theme: Bootstrapbase by Bas Brands<br />Built on: Essential by Julian Ridden</p>
+<p>créé par RedPiThemes<br />Documentation en ligne: <a href="http://redpithemes.com/Documentation/assets/index.html" target="_blank">http://redpithemes.com/Documentation/assets/index.html</a><br />L\'assistance est fournie via un ticket sur le forum d\'assistance: <a href="https://redpithemes.ticksy.com" target="_blank">https://redpithemes.ticksy.com</a></p>
 </div>
 <hr />
 <p style="text-align:center;"><img class="img-polaroid" src="lambda/pix/redPIthemes.jpg" /></p>';
@@ -48,6 +46,8 @@ $string['logo'] = 'Logo';
 $string['logodesc'] = 'Veuillez téléverser votre logo personnalisé ici. Si vous téléversez un logo, il apparaîtra dans l\'entête de la page.';
 $string['logo_res'] = 'Dimensions standards du logo';
 $string['logo_res_desc'] = 'Fixez la hauteur de votre logo à 90px au maximum. Activer cette option permet à votre logo de s\'adapter aux résolutions des différents écrans, vous pouvez aussi utiliser une version @2 pour les écrans en haute-résolution.';
+$string['favicon'] = 'Favivon';
+$string['favicon_desc'] = 'Modifiez le favicon de Lambda. Les images avec un fond transparent et une hauteur de 32 pixels fonctionneront mieux. Types autorisés: PNG, JPG, ICO';
 $string['pagewidth'] = 'Largeur de la page';
 $string['pagewidthdesc'] = 'Sélectionnez dans la liste la présentation souhaitée.';
 $string['boxed_wide'] = 'Encadré - largeur fixe';
@@ -307,8 +307,6 @@ $string['navbar_search_form_2'] = 'toujours cachée';
 $string['visibleadminonly'] ='Les blocs placés dans la zone ci-dessous ne sont affichés qu\'aux administrateurs du site.';
 $string['region-side-post'] = 'Droite';
 $string['region-side-pre'] = 'Gauche';
-$string['region-center-pre'] = 'Center (Top)';
-$string['region-center-post'] = 'Center (Bottom)';
 $string['region-footer-left'] = 'Pied de page (gauche)';
 $string['region-footer-middle'] = 'Pied de page (centre)';
 $string['region-footer-right'] = 'Pied de page (droite)';

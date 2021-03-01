@@ -45,6 +45,14 @@ $ADMIN->add('themes', new admin_category('theme_lambda', 'Theme-Lambda'));
     $setting = new admin_setting_configcheckbox($name, $title, $description, 1);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
+	
+	// favicon.
+	$name = 'theme_lambda/favicon';
+	$title = get_string ('favicon', 'theme_lambda');
+	$description = get_string ('favicon_desc', 'theme_lambda');
+	$setting = new admin_setting_configstoredfile( $name, $title, $description, 'favicon', 0, array('maxfiles' => 1, 'accepted_types' => array('.png', '.jpg', '.ico')));
+	$setting->set_updatedcallback ('theme_reset_all_caches');
+	$temp->add($setting);
 
 	// Fixed or Variable Width.
     $name = 'theme_lambda/pagewidth';

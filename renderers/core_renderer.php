@@ -54,6 +54,20 @@
         return $output;
     }
 	
+    public function favicon() {
+        global $CFG;
+
+        $theme = theme_config::load('lambda');
+        $favicon = $theme->setting_file_url('favicon', 'favicon');
+
+        if (!empty(($favicon))) {
+            $urlreplace = preg_replace('|^https?://|i', '//', $CFG->wwwroot);
+            $favicon = str_replace($urlreplace, '', $favicon);
+            return new moodle_url($favicon);
+        }
+        return parent::favicon();
+    }
+	
 	    /*
      * This renders the navbar.
      * Uses bootstrap compatible html.
@@ -148,11 +162,28 @@
         }
     }
 	
-	public function custom_menu($custommenuitems = '') {
-        global $CFG;
+    public function custom_menu($custommenuitems = '') {
+        global $CFG, $PAGE;
 
+        // Don't apply auto-linking filters.
+        $filtermanager = filter_manager::instance();
+        $filteroptions = array('originalformat' => FORMAT_HTML, 'noclean' => true);
+        $skipfilters = array('activitynames', 'data', 'glossary', 'sectionnames', 'bookchapters');
+
+        // Filter custom user menu.
+        // Don't filter custom user menu on the theme settings page. Otherwise it ends up
+        // filtering the edit field itself resulting in a loss of tags.
+        if ($PAGE->pagetype != 'admin-setting-themesettings' && stripos($CFG->customusermenuitems, '{') !== false) {
+            $CFG->customusermenuitems = $filtermanager->filter_text($CFG->customusermenuitems, $PAGE->context,
+                    $filteroptions, $skipfilters);
+        }
+
+        // Filter custom menu.
         if (empty($custommenuitems) && !empty($CFG->custommenuitems)) {
             $custommenuitems = $CFG->custommenuitems;
+        }
+        if (stripos($custommenuitems, '{') !== false) {
+            $custommenuitems = $filtermanager->filter_text($custommenuitems, $PAGE->context, $filteroptions, $skipfilters);
         }
         $custommenu = new custom_menu($custommenuitems, current_language());
         return $this->render_custom_menu($custommenu);
@@ -182,15 +213,13 @@
 					} else {
 						$current_menu_item = $mycourse->shortname;
 					}
-					$current_menu_item = format_text($current_menu_item, FORMAT_HTML);
-					$current_menu_item_title = format_text($mycourse->fullname, FORMAT_HTML);
+					$current_menu_item = format_string($current_menu_item, true, ['context' => context_course::instance(SITEID), "escape" => false]);
+					$current_menu_item_title = format_string($mycourse->fullname, true, ['context' => context_course::instance(SITEID), "escape" => false]);
                 	$branch->add($current_menu_item, new moodle_url('/course/view.php', array('id' => $mycourse->id)), $current_menu_item_title);
             	}
 			}
 			else {
-				$hometext = get_string('myhome');
-            	$homelabel = $hometext;
-            	$branch->add($homelabel, new moodle_url('/my/index.php'), $hometext);
+            	$branch->add(get_string('myhome'), new moodle_url('/my/index.php'), get_string('myhome'));
 			}
         }
 
@@ -332,11 +361,15 @@
 		if (theme_lambda_get_setting('slideshow_imgfx')!='') {$imgfx=theme_lambda_get_setting('slideshow_imgfx');}
 		
 		$slideshow_height='auto';
-		if(theme_lambda_get_setting('slideshow_height')=='responsive') {
+		if(theme_lambda_get_setting('slideshow_height')=='responsive') {			
 			if (!empty(theme_lambda_get_setting('slide1image'))) {
-				$slide_img_src = $theme->setting_file_url('slide1image', 'slide1image');
-				if (!empty($_SERVER['HTTPS'])) {$slide_img_src = 'https:'.$slide_img_src;} else {$slide_img_src = 'http:'.$slide_img_src;}
-				list($width, $height) = theme_lambda_getslidesize($slide_img_src);
+				$context = context_system::instance();
+				$filename = $theme->settings->slide1image;
+				$fs = get_file_storage();
+				$file = $fs->get_file($context->id, 'theme_lambda', 'slide1image', 0, '/', $filename);
+				$imageinfo = $file->get_imageinfo();
+				$height = $imageinfo['height'];
+				$width = $imageinfo['width'];
 				$relative = $height/$width*100;
 				$relative .= '%';
 				$slideshow_height=$relative;
@@ -414,7 +447,6 @@
 
         $showcoursemenu = false;
         $showusermenu = false;
-		$participantsmenu = false;
 
         // We are on the course home page.
         if (($context->contextlevel == CONTEXT_COURSE) &&
@@ -475,17 +507,16 @@
         } else {
 			$items = $this->page->navbar->get_items();
             $navbarnode = end($items);
-			if ($navbarnode && ($navbarnode->key === 'participants')) {
-				$participantsmenu = true;
-                $node = $this->page->settingsnav->find('users', navigation_node::TYPE_CONTAINER);
-                if ($node) {
-                    // Build an action menu based on the visible nodes from this navigation tree.
-                    $this->build_action_menu_from_navigation($menu, $node);
-                }
-			}
 		}
         return $this->render($menu);
     }
+	
+	public function lambda_h5p_header() {
+		$header = new stdClass();
+		$header->contextheader = $this->context_header();
+		$header->headeractions = $this->page->get_header_actions();
+		return $this->render_from_template('theme_lambda/lambda_h5p_header',$header);
+	}
 	
 	protected function build_action_menu_from_navigation(action_menu $menu,
                                                        navigation_node $node,

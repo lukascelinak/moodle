@@ -32,12 +32,10 @@ $string['choosereadme'] = '
 <p style="text-align:center;"><img class="img-polaroid" src="lambda/pix/screenshot.jpg" /></p>
 </div>
 <hr />
-<div class="prom-box prom-box-default shadow2" style="margin-bottom:20px;">
-<h2>Tema Lambda - Tema responsive para Moodle</h2>
-</div>
-<h4>Caracter&iacute;sticas del tema</h4>
+<h2>Lambda - Responsive Moodle Theme</h2>
+<div class="divider line-01"></div>
 <div style="color: #888; text-transform: uppercase; margin-bottom:20px;">
-<p>Compatibilidad: Moodle 2.5 - 3.9<br />Versi&oacute;n del tema: 1.98.9<br />Tema matriz: Bootstrapbase de Bas Brands<br />Basado en: Essential de Julian Ridden</p>
+<p>creado por RedPiThemes<br />Documentación en línea: <a href="http://redpithemes.com/Documentation/assets/index.html" target="_blank">http://redpithemes.com/Documentation/assets/index.html</a><br />El soporte se proporciona mediante un ticket en el foro de soporte: <a href="https://redpithemes.ticksy.com" target="_blank">https://redpithemes.ticksy.com</a></p>
 </div>
 <hr />
 <p style="text-align:center;"><img class="img-polaroid" src="lambda/pix/redPIthemes.jpg" /></p>';
@@ -46,6 +44,10 @@ $string['choosereadme'] = '
 $string['settings_general'] = 'General';
 $string['logo'] = 'Logo';
 $string['logodesc'] = 'Personaliza aqu&iacute; tu logo. El logo que subas se mostrar&aacute; en el encabezado.';
+$string['logo_res'] = 'Dimensión estándar del logotipo';
+$string['logo_res_desc'] = 'Establece la dimensión de su logo a una altura máxima de 90px. Con esta configuración, su logo se adaptará a diferentes resoluciones de pantalla y también puede usar una versión @2x para pantallas de alta resolución.';
+$string['favicon'] = 'Favivon';
+$string['favicon_desc'] = 'Cambia el favicon por Lambda. Las imágenes con un fondo transparente y una altura de 32 píxeles funcionarán mejor. Tipos permitidos: PNG, JPG, ICO';
 $string['pagewidth'] = 'Ancho de p&aacute;gina';
 $string['pagewidthdesc'] = 'Seleccionar de la lista de dise&ntilde;os de p&aacute;gina disponibles.';
 $string['boxed_wide'] = 'Caja - ancho fijo amplio';
@@ -203,8 +205,6 @@ $string['carousel_colordesc'] = 'Selecciona un color para el titular.';
 $string['visibleadminonly'] ='Los bloques añadidos a esta área solamente serán visibles para los administradores.';
 $string['region-side-post'] = 'Izquierda';
 $string['region-side-pre'] = 'Derecha';
-$string['region-center-pre'] = 'Center (Top)';
-$string['region-center-post'] = 'Center (Bottom)';
 $string['region-footer-left'] = 'Pie (izq.)';
 $string['region-footer-middle'] = 'Pie (medio)';
 $string['region-footer-right'] = 'Pie (dcha.)';

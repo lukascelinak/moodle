@@ -1,15 +1,5 @@
-$(window).on('load resize', function () {
-if (window.matchMedia('(min-width: 980px)').matches) {
-$('.navbar .dropdown').hover(function() {
-	$(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
-}, function() {
-	$(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
-});
-} else {$('.dropdown-menu').removeAttr("style"); $('.navbar .dropdown').unbind('mouseenter mouseleave');}
-});
-
-	(function($) {
- 		$(document).ready(function(){
+(function($) {
+ 	$(document).ready(function(){
 
 	var offset = 220;
     var duration = 500;
@@ -26,11 +16,7 @@ $('.navbar .dropdown').hover(function() {
     	return false;
 	});
 	
-	$(document).on('click', 'button[data-toggle="dropdown"]', function(event) {
-		event.preventDefault();
-  		$(this).next('.dropdown-menu').slideToggle("fast");
-	});
-	$(document).on('click', 'a[data-toggle="dropdown"]', function(event) {
+	$(document).on('click', 'button[data-toggle="dropdown"], .action-menu a[data-toggle="dropdown"], .lambda-custom-menu .nav-collapse.in a[data-toggle="dropdown"], .ml-auto.dropdown a[data-toggle="dropdown"]', function(event) {
 		event.preventDefault();
   		$(this).next('.dropdown-menu').slideToggle("fast");
 	});
@@ -39,17 +25,13 @@ $('.navbar .dropdown').hover(function() {
         	$('.dropdown .dropdown-menu:not(.lambda-login)').slideUp("fast");
     	}                       
 	});
-	$(document).on('click', '.modchooser button[data-action="show-option-summary"]', function(event) {
-		$('.carousel-item[data-region="modules"]').toggleClass("active");
-		$('.carousel-item[data-region="help"]').toggleClass("active");
-	});
-	$(document).on('click', '.modchooser button.closeoptionsummary ', function(event) {
+	$(document).on('click', '.modchooser button[data-action="show-option-summary"], .modchooser button.closeoptionsummary', function(event) {
 		$('.carousel-item[data-region="modules"]').toggleClass("active");
 		$('.carousel-item[data-region="help"]').toggleClass("active");
 	});
 
-	 });
-	}) (jQuery);
+	});
+}) (jQuery);
 
 
 var togglesidebar = function() {

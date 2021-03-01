@@ -28,7 +28,7 @@ $THEME->parents = array();
 $fa_version = 'fa-4';
 if ($THEME->settings->use_fa5 == 1) {$fa_version = 'fa-5';}
 
-$THEME->sheets = array('slider', 'typography', $fa_version, 'style_min', 'pix-core', 'vars');
+$THEME->sheets = array('auth', 'atto', 'slider', 'typography', $fa_version, 'style_min', 'pix-core', 'vars');
 $THEME->editor_sheets = array();
 $THEME->supportscssoptimisation = false;
 

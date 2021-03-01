@@ -190,7 +190,7 @@ if ($PAGE->theme->settings->fonts_source ==1) {
 <?php } ?>
 
 <?php if ($PAGE->theme->settings->use_fa5 == 1) { ?>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" crossorigin="anonymous">
 <?php } else if ($CFG->version < 2017051500) { ?>
 	<script src="https://use.fontawesome.com/c85108fa98.js"></script>
 <?php } ?>

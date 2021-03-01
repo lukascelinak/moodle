@@ -32,12 +32,10 @@ $string['choosereadme'] = '
 <p style="text-align:center;"><img class="img-polaroid" src="lambda/pix/screenshot.jpg" /></p>
 </div>
 <hr />
-<div class="prom-box prom-box-default shadow2" style="margin-bottom:20px;">
-<h2>Theme Lambda - Responsive Theme for Moodle</h2>
-</div>
-<h4>Theme Summary</h4>
+<h2>Lambda - Responsive Moodle Theme</h2>
+<div class="divider line-01"></div>
 <div style="color: #888; text-transform: uppercase; margin-bottom:20px;">
-<p>Compatibility: Moodle 2.5 - 3.9<br />Theme Version: 1.98.9<br />Parent theme: Bootstrapbase by Bas Brands<br />Built on: Essential by Julian Ridden</p>
+<p>created by RedPiThemes<br />Online documentation: <a href="http://redpithemes.com/Documentation/assets/index.html" target="_blank">http://redpithemes.com/Documentation/assets/index.html</a><br />Support is provided via ticket at the support forum: <a href="https://redpithemes.ticksy.com" target="_blank">https://redpithemes.ticksy.com</a></p>
 </div>
 <hr />
 <p style="text-align:center;"><img class="img-polaroid" src="lambda/pix/redPIthemes.jpg" /></p>';
@@ -48,6 +46,8 @@ $string['logo'] = 'Logo';
 $string['logodesc'] = 'Please upload your custom logo here. If you upload a logo it will appear in the header.';
 $string['logo_res'] = 'Standard logo dimension';
 $string['logo_res_desc'] = 'Sets the dimension of your logo to a maximum height of 90px. Using this setting, your logo will adapt to different screen resolutions and you can also use a @2x version for high-res screens.';
+$string['favicon'] = 'Favivon';
+$string['favicon_desc'] = 'Change the favicon for Lambda. Images with a transparent background and 32px height will work best. Allowed types: PNG, JPG, ICO';
 $string['pagewidth'] = 'Set Page Width';
 $string['pagewidthdesc'] = 'Choose from the list of availble page layouts.';
 $string['boxed_wide'] = 'Boxed - fixed width wide';
@@ -307,8 +307,6 @@ $string['navbar_search_form_2'] = 'always hidden';
 $string['visibleadminonly'] ='Blocks moved into the area below will only be seen by admins';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
-$string['region-center-pre'] = 'Center (Top)';
-$string['region-center-post'] = 'Center (Bottom)';
 $string['region-footer-left'] = 'Footer (Left)';
 $string['region-footer-middle'] = 'Footer (Middle)';
 $string['region-footer-right'] = 'Footer (Right)';

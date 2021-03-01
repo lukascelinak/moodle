@@ -1,6 +1,14 @@
 .svg-inline--fa {
     width: 1em;
 }
+a.back-to-top:before {
+    content: "\f139";
+    font-family: "Font Awesome 5 Free";
+    font-size: 13px;
+    font-weight: 900;
+	font-size: 3rem;
+    color: [[setting:maincolor]];
+}
 
 /* =========================================================== *
 Header
@@ -564,4 +572,17 @@ Moodle 3.9
     font-size: 16px;
     font-weight: 900;
     color: #999;
+}
+
+/*================================================== * 
+Moodle 3.10
+=====================================================*/
+.movehere a.movehere::before {
+    display: inline;
+    font-family: "Font Awesome 5 Free";
+    font-size: 1.15em;
+    content: "\f30b";
+    font-weight: 700;
+    margin-left: 5px;
+    line-height: 2rem;
 }

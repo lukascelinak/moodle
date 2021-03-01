@@ -49,7 +49,7 @@
         <button
             class="btn btn-link w-100 text-left p-2 m-0 d-flex align-items-center overview-section-toggle {{^expanded}}collapsed{{/expanded}}"
             data-toggle="collapse"
-            data-parent="#message-drawer-view-overview-container"
+            data-parent="#message-drawer-view-overview-container-{{uniqid}}"
             data-target="#{{$region}}{{/region}}-target"
             aria-expanded="{{#expanded}}true{{/expanded}}{{^expanded}}false{{/expanded}}"
             aria-controls="{{$region}}{{/region}}-target"

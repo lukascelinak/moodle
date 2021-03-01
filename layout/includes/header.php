@@ -55,10 +55,11 @@ if (strpos($checkuseragent, 'MSIE 8')) {$username = str_replace("'", "&prime;", 
 </header>
 <header class="navbar">
     <nav class="navbar-inner">
-        <div class="container-fluid">
+        <div class="lambda-custom-menu container-fluid">
             <?php
-                if ($home_button == 'shortname') { 
-                    $home_button_string = '<a class="brand" href="'.$CFG->wwwroot.'">'.$SITE->shortname.'</a>'; 
+                if ($home_button == 'shortname') {
+					$shortname = format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]);
+                    $home_button_string = '<a class="brand" href="'.$CFG->wwwroot.'">'.$shortname.'</a>'; 
                 }
                 else if ($home_button == 'home') { 
                     $home_button_string = '<a class="brand" href="'.$CFG->wwwroot.'">'.get_string('home').'</a>'; 
