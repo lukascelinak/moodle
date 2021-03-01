@@ -313,6 +313,24 @@ if ($ADMIN->fulltree) {
                 new lang_string('auth_ntlmsso_ie_fastpath_key', 'auth_ldap'),
                 new lang_string('auth_ntlmsso_ie_fastpath', 'auth_ldap'),
                 AUTH_NTLM_FASTPATH_ATTEMPT, $fastpathoptions));
+        
+        $browseroptions=array();
+        $browseroptions['MSIE']='MSIE';
+        $browseroptions['Edg']='Edge';
+        $browseroptions['Firefox']='Firefox';
+        $browseroptions['Chrome']='Chrome';
+        $browseroptions['Opera']='Opera';
+        $browseroptions['Safari']='Safari';
+        $browseroptions['Safari iOS']='Safari iOS';
+        $browseroptions['WebKit']='WebKit';
+        $browseroptions['Gecko']='Gecko';
+        $browseroptions['WebKit Android']='WebKit Android';
+        $browseroptions['Camino']='Camino';
+        
+        $settings->add(new admin_setting_configmulticheckbox('auth_ldap/ntlmsso_browsers',
+                new lang_string('auth_ntlmsso_ie_fastpath_browsers_key', 'auth_ldap'),
+                new lang_string('auth_ntlmsso_ie_fastpath_browsers', 'auth_ldap'),
+                'MSIE', $browseroptions));
 
         // Authentication type.
         $types = array();
